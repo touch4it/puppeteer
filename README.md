@@ -17,20 +17,20 @@ Note that you should have some knowledge of [Puppeteer](https://pptr.dev/) in or
 Install puppeteer wrapper from npm
 
 ```
-npm i puppeteer_t4it_wrapper
+npm i @touch4it/puppeteer
 ```
 
 In order to use it you will need to require it first
 
 ```
-const puppeteerT4IT = require('puppeteer_t4it_wrapper');
+const puppeteerT4IT = require('@touch4it/puppeteer');
 ```
 ## Documentation
 
 ##### Change default TIMEOUT and SCREENSHOT_DIRECTORY vars.
 If you want to use diffrent timeout and screenshot directory, you can use init function to change this variables. You can pass following arguments into this function:
 * `` timeout `` a tmieout which will be use in the module
-* `` screenshot_directory `` name of the directory where screenshots will be stored
+* `` screenshotDirectory `` name of the directory where screenshots will be stored
 
 ```
 puppeteerT4IT.init(5000, 'some_other_dir/');
@@ -40,7 +40,7 @@ puppeteerT4IT.init(5000, 'some_other_dir/');
 You can pass `` option `` object as argument, which can contain all available option for [puppeteer.launch()](https://pptr.dev/#?product=Puppeteer&version=v1.11.0&show=api-puppeteerlaunchoptions) funciton. It returns new `` browser `` instance.
 
 ```
-let browser = await puppeteerT4IT.launch({ headless: false});
+let browser = await puppeteerT4IT.launch({ headless: false });
 ```
 
 ##### Get new page instance.
@@ -51,7 +51,7 @@ You can pass following arguments into this function:
 It returns new `` page `` instance.
 
 ```
-let page = await puppeteerT4IT.getPage(browser, {username: 'User', password: '123abc'});
+let page = await puppeteerT4IT.getPage(browser, { username: 'User', password: '123abc' });
 ```
 
 ##### Navigate to web page and test status code.

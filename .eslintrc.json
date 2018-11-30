@@ -34,6 +34,7 @@
       }
     ],
     "unicorn/explicit-length-check": "off",
-    "unicorn/filename-case": "off"
+    "unicorn/filename-case": "off",
+    "no-console": "off"
   }
 }

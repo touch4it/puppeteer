@@ -1,6 +1,4 @@
-/* eslint-disable max-len, no-console */
-
-const puppeteer = require('puppeteer');
+const index = require('puppeteer');
 const assert = require('assert');
 const fs = require('fs-extra');
 
@@ -16,14 +14,16 @@ module.exports = {
   TIMEOUT: 30000,
   SCREENSHOT_DIRECTORY: 'screenshots/',
 
-  /** 
-  Initialize puppeteer wrapper
-  * @param {number} specify timeout in ms 
-  * @return {string} name of the directory where screenshots will be stored
-  */
-  init: (timeout = 30000, screenshot_directory = 'screenshots/') => {
+  /**
+   * Initialize puppeteer wrapper
+   *
+   * @param {number} timeout Request timeout in ms
+   * @param {string} screenshotDirectory Path of the directory where screenshots will be stored
+   * @return {void} Does not return any data
+   */
+  init: (timeout = 30000, screenshotDirectory = 'screenshots/') => {
     module.exports.TIMEOUT = timeout;
-    module.exports.SCREENSHOT_DIRECTORY = screenshot_directory;
+    module.exports.SCREENSHOT_DIRECTORY = screenshotDirectory;
   },
 
   /**
@@ -47,7 +47,7 @@ module.exports = {
     options.args.push('--disable-setuid-sandbox');
     options.args.push('--disable-dev-shm-usage');
 
-    const browser = await puppeteer.launch(options);
+    const browser = await index.launch(options);
 
     // Browser error handling
     browser.on('disconnected', () => {
