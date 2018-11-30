@@ -1,0 +1,39 @@
+{
+  "extends": [
+    "xo"
+  ],
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "rules": {
+    "indent": ["error", 2],
+    "camelcase": "off",
+    "no-multi-spaces": [
+      "error",
+      {
+        "ignoreEOLComments": true
+      }
+    ],
+    "spaced-comment": [
+      "error",
+      "always",
+      {
+        "block": {
+          "exceptions": [
+            "*"
+          ],
+          "markers": [
+            "!"
+          ]
+        }
+      }
+    ],
+    "unicorn/explicit-length-check": "off",
+    "unicorn/filename-case": "off"
+  }
+}
