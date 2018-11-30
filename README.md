@@ -17,13 +17,13 @@ Note that you should have some knowledge of [Puppeteer](https://pptr.dev/) in or
 Install puppeteer wrapper from npm
 
 ```
-npm i puppeteerT4IT-wrapper
+npm i puppeteer_t4it_wrapper
 ```
 
 In order to use it you will need to require it first
 
 ```
-const puppeteerT4IT  = require('puppeteerT4IT-wrapper');
+const puppeteerT4IT = require('puppeteer_t4it_wrapper');
 ```
 ## Documentation
 
@@ -83,7 +83,8 @@ You can pass following arguments into this function:
 * `` height `` screen height (number)
 * `` pageName `` web page name under which screenshot will be stored (string)
 * `` deviceScaleFactor `` Specify device scale factor (can be thought of as dpr). Defaults to 1 (number)
-* `` delay `` Time in ms to wait after reload
+* `` isMobile `` isMobile Whether the meta viewport tag is taken into account. Defaults to false (boolean)
+* `` delay `` Time in ms to wait after reload (number)
 * `` beforeAction `` Function to be called before screenshot is made (function)
 * `` beforeActionParameters `` beforeAction parameters (array)
 
@@ -163,10 +164,6 @@ It returns value of element.
 ```
 await puppeteerT4IT.getValueByQuerySelector(page, '.class');
 ```
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning.
 
 ## License
 
