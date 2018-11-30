@@ -27,6 +27,15 @@ const puppeteerT4IT  = require('puppeteerT4IT-wrapper');
 ```
 ## Documentation
 
+##### Change default TIMEOUT and SCREENSHOT_DIRECTORY vars.
+If you want to use diffrent timeout and screenshot directory, you can use init function to change this variables. You can pass following arguments into this function:
+* `` timeout `` a tmieout which will be use in the module
+* `` screenshot_directory `` name of the directory where screenshots will be stored
+
+```
+puppeteerT4IT.init(5000, 'some_other_dir/');
+```
+
 ##### Launch new browser instance.
 You can pass `` option `` object as argument, which can contain all available option for [puppeteer.launch()](https://pptr.dev/#?product=Puppeteer&version=v1.11.0&show=api-puppeteerlaunchoptions) funciton. It returns new `` browser `` instance.
 

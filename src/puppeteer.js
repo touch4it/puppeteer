@@ -16,6 +16,16 @@ module.exports = {
   TIMEOUT: 30000,
   SCREENSHOT_DIRECTORY: 'screenshots/',
 
+  /** 
+  Initialize puppeteer wrapper
+  * @param {number} specify timeout in ms 
+  * @return {string} name of the directory where screenshots will be stored
+  */
+  init: (timeout = 30000, screenshot_directory = 'screenshots/') => {
+    module.exports.TIMEOUT = timeout;
+    module.exports.SCREENSHOT_DIRECTORY = screenshot_directory;
+  },
+
   /**
    * Launch new browser instance
    *
