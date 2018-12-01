@@ -43,7 +43,7 @@ let browser = await puppeteerT4IT.launch({ headless: false });
 ### Get new page instance
 
 You can pass following arguments into this function:
-*   `browser` A Browser instance that you have created with [puppeteer.launch()](#Launch-new-browser-instance)
+*   `browser` A [Browser](#Launch-new-browser-instance) instance that you have created with [puppeteer.launch()](#Launch-new-browser-instance)
 *   `authenticationData` Object containing "username" and "password" [authentication](https://pptr.dev/#?product=Puppeteer&version=v1.11.0&show=api-pageauthenticatecredentials) keys for basic auth when the page is launched
 
 Returns new [Page](https://pptr.dev/#?product=Puppeteer&version=v1.11.0&show=api-class-page) instance.
