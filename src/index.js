@@ -163,7 +163,7 @@ module.exports = {
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-pageselector
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-elementhandledispose
    */
-  screenshotTest: async (page, width, height, pageName, deviceScaleFactor = 1, isMobile = false, delay = 0, beforeAction = null, beforeActionParameters = []) => {
+  screenshotPage: async (page, width, height, pageName, deviceScaleFactor = 1, isMobile = false, delay = 0, beforeAction = null, beforeActionParameters = []) => {
     try {
       const pathName = `${pageName}-${(`${width}`).padStart(4, '0')}x${(`${height}`).padStart(4, '0')}at${deviceScaleFactor}`;
 
@@ -229,7 +229,7 @@ module.exports = {
 
       return Promise.resolve();
     } catch (err) {
-      console.log('screenshotTest', err);
+      console.log('screenshotPage', err);
       throw err;
     }
   },
@@ -250,16 +250,16 @@ module.exports = {
     try {
       await fs.ensureDir(module.exports.SCREENSHOT_DIRECTORY + name);
 
-      await module.exports.screenshotTest(page, 360, 640, name, 1, true, delay, beforeAction, beforeActionParameters);
-      await module.exports.screenshotTest(page, 360, 640, name, 3, true, delay, beforeAction, beforeActionParameters);
-      await module.exports.screenshotTest(page, 640, 360, name, 1, true, delay, beforeAction, beforeActionParameters);
-      await module.exports.screenshotTest(page, 1366, 768, name, 1, false, delay, beforeAction, beforeActionParameters);
-      await module.exports.screenshotTest(page, 1920, 1080, name, 1, false, delay, beforeAction, beforeActionParameters);
-      await module.exports.screenshotTest(page, 375, 667, name, 1, true, delay, beforeAction, beforeActionParameters);
-      await module.exports.screenshotTest(page, 375, 667, name, 2, true, delay, beforeAction, beforeActionParameters);
-      await module.exports.screenshotTest(page, 667, 375, name, 1, true, delay, beforeAction, beforeActionParameters);
-      await module.exports.screenshotTest(page, 1440, 900, name, 1, false, delay, beforeAction, beforeActionParameters);
-      await module.exports.screenshotTest(page, 1280, 800, name, 1, false, delay, beforeAction, beforeActionParameters);
+      await module.exports.screenshotPage(page, 360, 640, name, 1, true, delay, beforeAction, beforeActionParameters);
+      await module.exports.screenshotPage(page, 360, 640, name, 3, true, delay, beforeAction, beforeActionParameters);
+      await module.exports.screenshotPage(page, 640, 360, name, 1, true, delay, beforeAction, beforeActionParameters);
+      await module.exports.screenshotPage(page, 1366, 768, name, 1, false, delay, beforeAction, beforeActionParameters);
+      await module.exports.screenshotPage(page, 1920, 1080, name, 1, false, delay, beforeAction, beforeActionParameters);
+      await module.exports.screenshotPage(page, 375, 667, name, 1, true, delay, beforeAction, beforeActionParameters);
+      await module.exports.screenshotPage(page, 375, 667, name, 2, true, delay, beforeAction, beforeActionParameters);
+      await module.exports.screenshotPage(page, 667, 375, name, 1, true, delay, beforeAction, beforeActionParameters);
+      await module.exports.screenshotPage(page, 1440, 900, name, 1, false, delay, beforeAction, beforeActionParameters);
+      await module.exports.screenshotPage(page, 1280, 800, name, 1, false, delay, beforeAction, beforeActionParameters);
     } catch (err) {
       console.log('screenshotMultipleResolutions', err);
       throw err;
