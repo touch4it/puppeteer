@@ -101,17 +101,17 @@ module.exports = {
    *
    * @param {Puppeteer.Page} page Browser page object
    * @param {string} url URL to be redirected to
-   * @param {number} statusCode awaited HTTP response status code
+   * @param {number} expectedStatusCode awaited HTTP response status code
    * @return {Promise<Puppeteer.Page>} Browser page
    *
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-pagegotourl-options
    * @see https://www.npmjs.com/package/assert#assertequalactual-expected-message
    */
-  goto: async (page, url, statusCode = 200) => {
+  goto: async (page, url, expectedStatusCode = 200) => {
     console.log(`Goto ${url}`);
 
     let response;
-    let status;
+    let receivedStatusCode;
 
     try {
       response = await page.goto(url, {
@@ -119,7 +119,7 @@ module.exports = {
         waitUntil: 'domcontentloaded'
       });
 
-      status = response.status();
+      receivedStatusCode = response.status();
     } catch (err) {
       console.error('goto', 'page.goto()', err);
       return Promise.reject(err);
@@ -130,7 +130,7 @@ module.exports = {
       return Promise.reject(new Error(`Response empty for "${url}"`));
     }
 
-    assert.equal(statusCode, `${status}`, `Wrong status code for "${url}"`);
+    assert.equal(`${receivedStatusCode}`, `${expectedStatusCode}`, `Wrong status code for "${url}"`);
 
     return Promise.resolve(page);
   },

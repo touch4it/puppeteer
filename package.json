@@ -1,6 +1,6 @@
 {
   "name": "@touch4it/puppeteer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Wrapper around Puppeteer library to make it easier to use.",
   "license": "MIT",
   "engines": {
