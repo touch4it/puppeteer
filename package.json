@@ -1,7 +1,16 @@
 {
   "name": "@touch4it/puppeteer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Wrapper around Puppeteer library to make it easier to use.",
+  "keywords": [
+    "automation",
+    "chromium",
+    "puppeteer",
+    "screenshot",
+    "screenshots",
+    "test",
+    "testing"
+  ],
   "license": "MIT",
   "engines": {
     "node": ">= 8"
