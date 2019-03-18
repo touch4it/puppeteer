@@ -58,6 +58,13 @@ module.exports = {
   },
 
   /**
+   * Get Puppeteer object
+   *
+   * @return {Puppeteer} Puppeteer required library
+   */
+  getPuppeteer: () => index,
+
+  /**
    * Get new page instance
    *
    * @param {Puppeteer.Browser} browser Browser instance

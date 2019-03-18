@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1.0
+
+-   Updated Puppeteer to version 1.13.0
+-   Added function to get Puppeteer object
+
 ## 1.0.4
 
 -   Added npm keywords
