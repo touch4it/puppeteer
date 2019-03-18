@@ -1,6 +1,6 @@
 {
   "name": "@touch4it/puppeteer",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Wrapper around Puppeteer library to make it easier to use.",
   "keywords": [
     "automation",
