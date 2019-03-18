@@ -20,6 +20,14 @@ const puppeteerT4IT = require('@touch4it/puppeteer');
 
 ## Documentation
 
+### Get Puppeteer instance
+
+Returns [Puppeteer](https://www.npmjs.com/package/puppeteer) library.
+
+```javascript
+const puppeteer = puppeteerT4IT.getPuppeteer();
+```
+
 ### Change default TIMEOUT and SCREENSHOT_DIRECTORY vars
 
 If you want to use diffrent timeout and screenshot directory, you can use init function to change these variables. You can pass following arguments into this function:
