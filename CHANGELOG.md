@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.1
+
+-   Fixed screenshot clipping
+
 ## 1.1.0
 
 -   Updated Puppeteer to version 1.13.0

@@ -221,13 +221,21 @@ module.exports = {
       const bodyHandle = await page.$('body');
       const boundingBox = await bodyHandle.boundingBox();
 
+      let width = parseInt(boundingBox.width, 10);
+      width = (isNaN(width)) ? 1 : width;
+      width = (width < 1) ? 1 : width;
+
+      let height = parseInt(boundingBox.height, 10);
+      height = (isNaN(height)) ? 1 : height;
+      height = (height < 1) ? 1 : height;
+
       await page.screenshot({
         path: `${module.exports.SCREENSHOT_DIRECTORY + pageName}/${pathName}-fullpage.jpg`,
         clip: {
           x: 0,
           y: 0,
-          width: parseInt(boundingBox.width, 10),
-          height: parseInt(boundingBox.height, 10)
+          width,
+          height
         },
         type: 'jpeg'
       });
