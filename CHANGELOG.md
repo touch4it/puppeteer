@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.0
+
+-   Updated dependencies
+
 ## 1.1.3
 
 -   Fixed screenshot clipping
