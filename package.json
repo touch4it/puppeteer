@@ -30,7 +30,8 @@
   },
   "scripts": {
     "lint": "eslint src/",
-    "test": "npm run lint"
+    "test": "npm run lint",
+    "publish": "npm run test && npm publish"
   },
   "contributors": [
     "Viktor Šulák <viktor.sulak@touch4it.com>",
