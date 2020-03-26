@@ -1,5 +1,5 @@
-const index = require('puppeteer');
 const assert = require('assert');
+const index = require('puppeteer');
 const fs = require('fs-extra');
 
 module.exports = {
@@ -127,9 +127,9 @@ module.exports = {
       });
 
       receivedStatusCode = response.status();
-    } catch (err) {
-      console.error('goto', 'page.goto()', err);
-      return Promise.reject(err);
+    } catch (error) {
+      console.error('goto', 'page.goto()', error);
+      return Promise.reject(error);
     }
 
     if (!response) {
@@ -174,9 +174,9 @@ module.exports = {
     try {
       const pathName = `${pageName}-${(`${width}`).padStart(4, '0')}x${(`${height}`).padStart(4, '0')}at${deviceScaleFactor}`;
 
-      console.log(`Screenshotting '${pathName}'`);
+      console.log(`Screenshotting ’${pathName}’`);
 
-      deviceScaleFactor = parseInt(deviceScaleFactor, 10);
+      deviceScaleFactor = Number.parseInt(deviceScaleFactor, 10);
 
       if (Number.isNaN(deviceScaleFactor) || deviceScaleFactor < 1) {
         const err = new Error('device scale factor incorrect');
@@ -195,7 +195,7 @@ module.exports = {
           timeout: module.exports.TIMEOUT,
           waitUntil: 'domcontentloaded'
         });
-      } catch (err) {
+      } catch (_) {
         console.log(`Failed reload: ${pathName}`);
         return Promise.resolve();
       }
@@ -221,12 +221,12 @@ module.exports = {
       const bodyHandle = await page.$('body');
       const boundingBox = await bodyHandle.boundingBox();
 
-      let boundingBoxWidth = parseInt(boundingBox.width, 10);
-      boundingBoxWidth = (isNaN(boundingBoxWidth)) ? 1 : boundingBoxWidth;
+      let boundingBoxWidth = Number.parseInt(boundingBox.width, 10);
+      boundingBoxWidth = (Number.isNaN(boundingBoxWidth)) ? 1 : boundingBoxWidth;
       boundingBoxWidth = (boundingBoxWidth < 1) ? 1 : boundingBoxWidth;
 
-      let boundingBoxHeight = parseInt(boundingBox.height, 10);
-      boundingBoxHeight = (isNaN(boundingBoxHeight)) ? 1 : boundingBoxHeight;
+      let boundingBoxHeight = Number.parseInt(boundingBox.height, 10);
+      boundingBoxHeight = (Number.isNaN(boundingBoxHeight)) ? 1 : boundingBoxHeight;
       boundingBoxHeight = (boundingBoxHeight < 1) ? 1 : boundingBoxHeight;
 
       await page.screenshot({
@@ -243,9 +243,9 @@ module.exports = {
       await bodyHandle.dispose();
 
       return Promise.resolve();
-    } catch (err) {
-      console.log('screenshotPage', err);
-      throw err;
+    } catch (error) {
+      console.log('screenshotPage', error);
+      throw error;
     }
   },
 
@@ -275,9 +275,9 @@ module.exports = {
       await module.exports.screenshotPage(page, 667, 375, name, 1, true, delay, beforeAction, beforeActionParameters);
       await module.exports.screenshotPage(page, 1440, 900, name, 1, false, delay, beforeAction, beforeActionParameters);
       await module.exports.screenshotPage(page, 1280, 800, name, 1, false, delay, beforeAction, beforeActionParameters);
-    } catch (err) {
-      console.log('screenshotMultipleResolutions', err);
-      throw err;
+    } catch (error) {
+      console.log('screenshotMultipleResolutions', error);
+      throw error;
     }
 
     return Promise.resolve();
@@ -296,7 +296,7 @@ module.exports = {
   clickOnElement: async (page, querySelector, delayAfter = 0) => {
     try {
       await page.click(querySelector);
-    } catch (err) {
+    } catch (_) {
       console.log(`Element not found or hidden "${querySelector}"`);
     }
 
@@ -316,7 +316,7 @@ module.exports = {
   tapOnElement: async (page, querySelector, delayAfter = 0) => {
     try {
       await page.tap(querySelector);
-    } catch (err) {
+    } catch (_) {
       console.log(`Element not found or hidden "${querySelector}"`);
     }
 

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.5.0
+
+-   Updated Puppeteer to version 2.1.1
+-   Updated dependencies
+-   Replaced `eslint-config-xo` in favour of `eslint-config-touch4it`
+
 ## 1.4.0
 
 -   Updated Puppeteer to version 1.20.0

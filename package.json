@@ -1,17 +1,9 @@
 {
   "name": "@touch4it/puppeteer",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Wrapper around Puppeteer library to make it easier to use.",
-  "keywords": [
-    "automation",
-    "chromium",
-    "puppeteer",
-    "screenshot",
-    "screenshots",
-    "test",
-    "testing"
-  ],
   "license": "MIT",
+  "private": false,
   "engines": {
     "node": ">= 8"
   },
@@ -24,27 +16,39 @@
   },
   "homepage": "https://github.com/touch4it/puppeteer",
   "author": "Touch4IT, s.r.o. <hi@touch4it.com> (https://touch4it.com/)",
+  "contributors": [
+    "Viktor Šulák <viktor.sulak@touch4it.com>",
+    "Jakub Žovák <jakub.zovak@touch4it.com>"
+  ],
+  "keywords": [
+    "automation",
+    "chromium",
+    "puppeteer",
+    "screenshot",
+    "screenshots",
+    "test",
+    "testing"
+  ],
   "main": "src/",
   "directories": {
     "lib": "src"
   },
   "scripts": {
+    "format-package": "format-package -w",
     "lint": "eslint src/",
-    "test": "npm run lint",
-    "pub": "npm run test && npm publish"
+    "test": "npm run lint"
   },
-  "contributors": [
-    "Viktor Šulák <viktor.sulak@touch4it.com>",
-    "Jakub Žovák <jakub.zovak@touch4it.com>"
+  "maintainers": [
+    "Viktor Šulák <viktor.sulak@touch4it.com>"
   ],
-  "private": false,
   "dependencies": {
     "assert": "^2.0.0",
-    "fs-extra": "^8.1.0",
-    "puppeteer": "^1.20.0"
+    "fs-extra": "^9.0.0",
+    "puppeteer": "^2.1.1"
   },
   "devDependencies": {
-    "eslint": "^6.5.1",
-    "eslint-config-xo": "^0.27.1"
+    "eslint": "^6.8.0",
+    "eslint-config-touch4it": "^4.0.0",
+    "format-package": "^5.2.0"
   }
 }
