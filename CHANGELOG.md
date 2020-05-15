@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.6.0
+
+-   Updated Puppeteer to version 3.0.4
+-   Updated dependencies
+
 ## 1.5.0
 
 -   Updated Puppeteer to version 2.1.1
