@@ -43,9 +43,7 @@ module.exports = {
       options.args = [];
     }
 
-    options.args.push('--no-sandbox');
-    options.args.push('--disable-setuid-sandbox');
-    options.args.push('--disable-dev-shm-usage');
+    options.args.push('--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage');
 
     const browser = await index.launch(options);
 
@@ -85,8 +83,8 @@ module.exports = {
     });
 
     // Page error handling
-    page.on('error', err => {
-      console.error('page on error', err);
+    page.on('error', error => {
+      console.error('page on error', error);
     });
 
     if (authenticationData) {
@@ -148,6 +146,7 @@ module.exports = {
    * @param {int} ms - Time in ms
    * @return {Promise<void>} Resolved promise when finished
    */
+  // eslint-disable-next-line no-promise-executor-return
   sleep: ms => new Promise(resolve => setTimeout(resolve, ms)),
 
   /**
@@ -179,8 +178,8 @@ module.exports = {
       deviceScaleFactor = Number.parseInt(deviceScaleFactor, 10);
 
       if (Number.isNaN(deviceScaleFactor) || deviceScaleFactor < 1) {
-        const err = new Error('device scale factor incorrect');
-        return Promise.reject(err);
+        const error = new Error('device scale factor incorrect');
+        return Promise.reject(error);
       }
 
       await page.setViewport({
@@ -195,6 +194,7 @@ module.exports = {
           timeout: module.exports.TIMEOUT,
           waitUntil: 'domcontentloaded'
         });
+      // eslint-disable-next-line unicorn/prefer-optional-catch-binding
       } catch (_) {
         console.log(`Failed reload: ${pathName}`);
         return Promise.resolve();
@@ -296,6 +296,7 @@ module.exports = {
   clickOnElement: async (page, querySelector, delayAfter = 0) => {
     try {
       await page.click(querySelector);
+    // eslint-disable-next-line unicorn/prefer-optional-catch-binding
     } catch (_) {
       console.log(`Element not found or hidden "${querySelector}"`);
     }
@@ -316,6 +317,7 @@ module.exports = {
   tapOnElement: async (page, querySelector, delayAfter = 0) => {
     try {
       await page.tap(querySelector);
+    // eslint-disable-next-line unicorn/prefer-optional-catch-binding
     } catch (_) {
       console.log(`Element not found or hidden "${querySelector}"`);
     }

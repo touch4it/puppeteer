@@ -1,6 +1,6 @@
 {
   "name": "@touch4it/puppeteer",
-  "version": "1.6.0",
+  "version": "1.7.1",
   "description": "Wrapper around Puppeteer library to make it easier to use.",
   "license": "MIT",
   "private": false,
@@ -17,7 +17,7 @@
   "homepage": "https://github.com/touch4it/puppeteer",
   "author": "Touch4IT, s.r.o. <hi@touch4it.com> (https://touch4it.com/)",
   "contributors": [
-    "Viktor Šulák <viktor.sulak@touch4it.com>",
+    "Viktor Šulák <sulak@touch4it.com>",
     "Jakub Žovák <jakub.zovak@touch4it.com>"
   ],
   "keywords": [
@@ -39,16 +39,16 @@
     "test": "npm run lint"
   },
   "maintainers": [
-    "Viktor Šulák <viktor.sulak@touch4it.com>"
+    "Viktor Šulák <sulak@touch4it.com>"
   ],
   "dependencies": {
     "assert": "^2.0.0",
-    "fs-extra": "^9.0.0",
-    "puppeteer": "^3.0.4"
+    "fs-extra": "^10.0.0",
+    "puppeteer": "^9.1.1"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-touch4it": "^4.0.1",
-    "format-package": "^5.2.0"
+    "eslint": "^7.26.0",
+    "eslint-config-touch4it": "^8.0.1",
+    "format-package": "^6.1.0"
   }
 }
