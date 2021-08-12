@@ -11,7 +11,7 @@ module.exports = {
   STATUS_NOT_FOUND: 404,
   STATUS_SERVER_ERROR: 500,
 
-  TIMEOUT: 30000,
+  TIMEOUT: 30_000,
   SCREENSHOT_DIRECTORY: 'screenshots/',
 
   /**
@@ -21,7 +21,7 @@ module.exports = {
    * @param {string} screenshotDirectory Path of the directory where screenshots will be stored
    * @return {void} Does not return any data
    */
-  init: (timeout = 30000, screenshotDirectory = 'screenshots/') => {
+  init: (timeout = 30_000, screenshotDirectory = 'screenshots/') => {
     module.exports.TIMEOUT = timeout;
     module.exports.SCREENSHOT_DIRECTORY = screenshotDirectory;
   },

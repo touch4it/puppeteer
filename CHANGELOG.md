@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.8.0
+
+-   Updated Puppeteer to version 10.2.0
+-   Updated dependencies
+-   Fixed lint errors
+
 ## 1.7.1
 
 -   Fixed lint errors
