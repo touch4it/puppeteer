@@ -1,6 +1,5 @@
 # Puppeteer wrapper
 
-![npm peer dependency version (scoped)](https://img.shields.io/npm/dependency-version/@touch4it/puppeteer/puppeteer)
 ![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)
 ![npm version](https://img.shields.io/npm/v/@touch4it/puppeteer)
 ![node version](https://img.shields.io/node/v/@touch4it/puppeteer)
