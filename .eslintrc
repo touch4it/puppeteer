@@ -1,0 +1,7 @@
+{
+  "extends": [
+    "touch4it/node",
+    "touch4it/commonjs",
+    "touch4it/jsdoc"
+  ]
+}

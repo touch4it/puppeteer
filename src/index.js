@@ -1,4 +1,4 @@
-const assert = require('assert');
+const assert = require('node:assert');
 const index = require('puppeteer');
 const fs = require('fs-extra');
 
@@ -19,9 +19,9 @@ module.exports = {
    *
    * @param {number} timeout Request timeout in ms
    * @param {string} screenshotDirectory Path of the directory where screenshots will be stored
-   * @return {void} Does not return any data
+   * @returns {void} Does not return any data
    */
-  init: (timeout = 30_000, screenshotDirectory = 'screenshots/') => {
+  init(timeout = 30_000, screenshotDirectory = 'screenshots/') {
     module.exports.TIMEOUT = timeout;
     module.exports.SCREENSHOT_DIRECTORY = screenshotDirectory;
   },
@@ -30,11 +30,11 @@ module.exports = {
    * Launch new browser instance
    *
    * @param {Object} options Browser launch options
-   * @return {Promise<Puppeteer.Browser>} Browser instance
+   * @returns {Promise<Puppeteer.Browser>} Browser instance
    *
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-puppeteerlaunchoptions
    */
-  launch: async (options = {}) => {
+  async launch(options = {}) {
     if (typeof options !== 'object' || options === null) {
       options = {};
     }
@@ -58,7 +58,7 @@ module.exports = {
   /**
    * Get Puppeteer object
    *
-   * @return {Puppeteer} Puppeteer required library
+   * @returns {Puppeteer} Puppeteer required library
    */
   getPuppeteer: () => index,
 
@@ -67,12 +67,12 @@ module.exports = {
    *
    * @param {Puppeteer.Browser} browser Browser instance
    * @param {Object?} authenticationData Object containing "username" and "password" keys for basic auth
-   * @return {Promise<Puppeteer.Page>} New page instance
+   * @returns {Promise<Puppeteer.Page>} New page instance
    *
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-browsernewpage
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-pageauthenticatecredentials
    */
-  getPage: async (browser, authenticationData = null) => {
+  async getPage(browser, authenticationData = null) {
     const page = await browser.newPage();
 
     // Failed request handling
@@ -95,7 +95,7 @@ module.exports = {
     await page.setViewport({
       width: 1920,
       height: 1080,
-      deviceScaleFactor: 1
+      deviceScaleFactor: 1,
     });
 
     return page;
@@ -107,44 +107,35 @@ module.exports = {
    * @param {Puppeteer.Page} page Browser page object
    * @param {string} url URL to be redirected to
    * @param {number} expectedStatusCode awaited HTTP response status code
-   * @return {Promise<Puppeteer.Page>} Browser page
+   * @returns {Promise<Puppeteer.Page>} Browser page
    *
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-pagegotourl-options
    * @see https://www.npmjs.com/package/assert#assertequalactual-expected-message
    */
-  goto: async (page, url, expectedStatusCode = 200) => {
+  async goto(page, url, expectedStatusCode = 200) {
     console.log(`Goto ${url}`);
 
-    let response;
-    let receivedStatusCode;
+    const response = await page.goto(url, {
+      timeout: module.exports.TIMEOUT,
+      waitUntil: 'domcontentloaded',
+    });
 
-    try {
-      response = await page.goto(url, {
-        timeout: module.exports.TIMEOUT,
-        waitUntil: 'domcontentloaded'
-      });
-
-      receivedStatusCode = response.status();
-    } catch (error) {
-      console.error('goto', 'page.goto()', error);
-      return Promise.reject(error);
-    }
+    const receivedStatusCode = response.status();
 
     if (!response) {
-      console.error(`Response empty for "${url}"`);
-      return Promise.reject(new Error(`Response empty for "${url}"`));
+      throw new Error(`Response empty for "${url}"`);
     }
 
     assert.equal(`${receivedStatusCode}`, `${expectedStatusCode}`, `Wrong status code for "${url}"`);
 
-    return Promise.resolve(page);
+    return page;
   },
 
   /**
    * Timeout execution for specified amount of milliseconds
    *
    * @param {int} ms - Time in ms
-   * @return {Promise<void>} Resolved promise when finished
+   * @returns {Promise<void>} Resolved promise when finished
    */
   // eslint-disable-next-line no-promise-executor-return
   sleep: ms => new Promise(resolve => setTimeout(resolve, ms)),
@@ -161,7 +152,7 @@ module.exports = {
    * @param {number} delay Time in ms to wait after reload
    * @param {function} beforeAction Function to be called before screenshot is made
    * @param {array} beforeActionParameters beforeAction parameters
-   * @return {Promise<void>} Resolved promise when finished
+   * @returns {Promise<void>} Resolved promise when finished
    *
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-pagesetviewportviewport
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-pagereloadoptions
@@ -169,7 +160,7 @@ module.exports = {
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-pageselector
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-elementhandledispose
    */
-  screenshotPage: async (page, width, height, pageName, deviceScaleFactor = 1, isMobile = false, delay = 0, beforeAction = null, beforeActionParameters = []) => {
+  async screenshotPage(page, width, height, pageName, deviceScaleFactor = 1, isMobile = false, delay = 0, beforeAction = null, beforeActionParameters = []) {
     try {
       const pathName = `${pageName}-${(`${width}`).padStart(4, '0')}x${(`${height}`).padStart(4, '0')}at${deviceScaleFactor}`;
 
@@ -178,26 +169,25 @@ module.exports = {
       deviceScaleFactor = Number.parseInt(deviceScaleFactor, 10);
 
       if (Number.isNaN(deviceScaleFactor) || deviceScaleFactor < 1) {
-        const error = new Error('device scale factor incorrect');
-        return Promise.reject(error);
+        throw new Error('device scale factor incorrect');
       }
 
       await page.setViewport({
         width,
         height,
         deviceScaleFactor,
-        isMobile
+        isMobile,
       });
 
       try {
         await page.reload({
           timeout: module.exports.TIMEOUT,
-          waitUntil: 'domcontentloaded'
+          waitUntil: 'domcontentloaded',
         });
       // eslint-disable-next-line unicorn/prefer-optional-catch-binding
       } catch (_) {
         console.log(`Failed reload: ${pathName}`);
-        return Promise.resolve();
+        return;
       }
 
       // Wait before making screenshot
@@ -214,7 +204,7 @@ module.exports = {
       await page.screenshot({
         path: `${module.exports.SCREENSHOT_DIRECTORY + pageName}/${pathName}-viewport.jpg`,
         fullPage: false,
-        type: 'jpeg'
+        type: 'jpeg',
       });
 
       // Full page screenshot
@@ -235,14 +225,14 @@ module.exports = {
           x: 0,
           y: 0,
           width: boundingBoxWidth,
-          height: boundingBoxHeight
+          height: boundingBoxHeight,
         },
-        type: 'jpeg'
+        type: 'jpeg',
       });
 
       await bodyHandle.dispose();
 
-      return Promise.resolve();
+      return;
     } catch (error) {
       console.log('screenshotPage', error);
       throw error;
@@ -257,11 +247,11 @@ module.exports = {
    * @param {number} delay Time in ms to wait after reload
    * @param {function} beforeAction Function to be called before screenshot is made
    * @param {array} beforeActionParameters beforeAction parameters
-   * @return {Promise<void>} Resolved promise when finished
+   * @returns {Promise<void>} Resolved promise when finished
    *
    * @see https://github.com/jprichardson/node-fs-extra/blob/HEAD/docs/ensureDir.md
    */
-  screenshotMultipleResolutions: async (page, name, delay = 0, beforeAction = null, beforeActionParameters = []) => {
+  async screenshotMultipleResolutions(page, name, delay = 0, beforeAction = null, beforeActionParameters = []) {
     try {
       await fs.ensureDir(module.exports.SCREENSHOT_DIRECTORY + name);
 
@@ -279,8 +269,6 @@ module.exports = {
       console.log('screenshotMultipleResolutions', error);
       throw error;
     }
-
-    return Promise.resolve();
   },
 
   /**
@@ -289,11 +277,11 @@ module.exports = {
    * @param {Puppeteer.Page} page Puppeteer page object
    * @param {string} querySelector Page element selector
    * @param {number} delayAfter Time in ms to wait after click
-   * @return {Promise<void>} Resolved promise when finished
+   * @returns {Promise<void>} Resolved promise when finished
    *
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-pageclickselector-options
    */
-  clickOnElement: async (page, querySelector, delayAfter = 0) => {
+  async clickOnElement(page, querySelector, delayAfter = 0) {
     try {
       await page.click(querySelector);
     // eslint-disable-next-line unicorn/prefer-optional-catch-binding
@@ -310,11 +298,11 @@ module.exports = {
    * @param {Puppeteer.Page} page Puppeteer page object
    * @param {string} querySelector Page element selector
    * @param {number} delayAfter Time in ms to wait after click
-   * @return {Promise<void>} Resolved promise when finished
+   * @returns {Promise<void>} Resolved promise when finished
    *
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-pagetapselector
    */
-  tapOnElement: async (page, querySelector, delayAfter = 0) => {
+  async tapOnElement(page, querySelector, delayAfter = 0) {
     try {
       await page.tap(querySelector);
     // eslint-disable-next-line unicorn/prefer-optional-catch-binding
@@ -330,7 +318,7 @@ module.exports = {
    *
    * @param {Puppeteer.Page} page Puppeteer page object
    * @param {string} querySelectorString DOM selector of target element
-   * @return {Promise<string?>} Link href from element
+   * @returns {Promise<string?>} Link href from element
    *
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-pageevalselector-pagefunction-args-1
    */
@@ -341,7 +329,7 @@ module.exports = {
    *
    * @param {Puppeteer.Page} page Puppeteer page object
    * @param {string} querySelectorString DOM selector of target element
-   * @return {Promise<string?>} Link hostname from element
+   * @returns {Promise<string?>} Link hostname from element
    *
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-pageevalselector-pagefunction-args-1
    */
@@ -352,9 +340,9 @@ module.exports = {
    *
    * @param {Puppeteer.Page} page Puppeteer page object
    * @param {string} querySelectorString DOM selector of target element
-   * @return {Promise<string?>} Value of element
+   * @returns {Promise<string?>} Value of element
    *
    * @see https://pptr.dev/#?product=Puppeteer&version=v1.8.0&show=api-pageevalselector-pagefunction-args-1
    */
-  getValueByQuerySelector: (page, querySelectorString) => page.$eval(querySelectorString, link => link.innerHTML)
+  getValueByQuerySelector: (page, querySelectorString) => page.$eval(querySelectorString, link => link.innerHTML),
 };
